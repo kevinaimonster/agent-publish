@@ -14,12 +14,12 @@ KEY_PATH="$HOME/.ssh/tunnel_ed25519"
 echo "正在检查远程登录状态..."
 if ! sudo systemsetup -getremotelogin 2>/dev/null | grep -qi "on"; then
     echo ""
-    echo "⚠  需要先开启「远程登录」，请按以下步骤操作："
+    echo "⚠  需要先开启「远程登录」："
     echo ""
     echo "   系统设置 → 通用 → 共享 → 打开「远程登录」开关"
     echo ""
-    read -p "开启后按回车继续..."
-    echo ""
+    echo "开启后重新运行本脚本即可。"
+    exit 1
 fi
 
 # 2. 确保 .ssh 目录存在
