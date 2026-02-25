@@ -10,17 +10,13 @@ SERVER_USER="root"
 TUNNEL_PORT=2222
 KEY_PATH="$HOME/.ssh/tunnel_ed25519"
 
-# 1. 检查远程登录是否已开启
+# 1. 检查并开启远程登录
 echo "正在检查远程登录状态..."
 if ! sudo systemsetup -getremotelogin 2>/dev/null | grep -qi "on"; then
-    echo ""
-    echo "⚠  需要先开启「远程登录」："
-    echo ""
-    echo "   系统设置 → 通用 → 共享 → 打开「远程登录」开关"
-    echo ""
-    echo "开启后重新运行本脚本即可。"
-    exit 1
+    echo "正在开启远程登录（需要输入本机登录密码）..."
+    sudo systemsetup -setremotelogin on
 fi
+echo "[OK] 远程登录已开启"
 
 # 2. 确保 .ssh 目录存在
 mkdir -p ~/.ssh
